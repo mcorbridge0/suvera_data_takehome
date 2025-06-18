@@ -25,10 +25,25 @@ seeds:
 
 models:
   data_takehome:
-    materialized: table
-    staging:
-      materialized: view
-      +docs:
-        node_color: 'silver'
-    +docs:
-      node_color: 'gold'
+    suvera_task:
+      staging:
+        +materialized: view
+        +docs:
+          node_color: 'blue'
+        +schema: staging
+      marts:
+        +materialized: table
+        +docs:
+          node_color: 'gold'
+        +schema: marts
+      intermediate:
+        +materialized: table
+        +docs:
+          node_color: 'silver'
+        +schema: intermediate
+      data_quality:
+        +materialized: table
+        +docs:
+          node_color: 'red'
+        +schema: data_quality
+    
