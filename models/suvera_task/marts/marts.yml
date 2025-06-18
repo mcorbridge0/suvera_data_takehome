@@ -6,6 +6,7 @@ models:
     contraints:
       - type: primary_key
         columns: patient_id
+    columns:
       - name: patient_id
         tests:
           - unique
