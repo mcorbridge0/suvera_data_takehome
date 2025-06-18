@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: stg_activities
+    columns:
+      - name: activity_id
+        tests:
+          - unique:
+              config:
+                severity: warn
+          - not_null:
+              config:
+                severity: warn
+          - is_int:
+              config:
+                severity: warn
+              column_name: activity_id
+      - name: patient_id
+        tests:
+          - not_null:
+              config:
+                severity: warn
+          - is_int:
+              config:
+                severity: warn
+              column_name: patient_id
+      - name: activity_type
+      - name: activity_date
+      - name: duration_minutes
+  
+  - name: stg_patients
+    columns:
+      - name: patient_id
+        tests:
+          - unique:
+              config:
+                severity: warn
+          - not_null:
+              config:
+                severity: warn
+          - is_int:
+              config:
+                severity: warn
+              column_name: patient_id
+      - name: practice_id
+        tests:
+          - not_null:
+              config:
+                severity: warn
+          - is_int:
+              config:
+                severity: warn
+              column_name: practice_id
+      - name: age
+      - name: gender
+      - name: registration_date
+      - name: condition_list
+      - name: email
+      - name: phone
+
+  - name: stg_pcns
+    columns:
+      - name: id
+        tests:
+          - unique:
+              config:
+                severity: warn
+          - not_null:
+              config:
+                severity: warn
+          - is_int:
+              config:
+                severity: warn
+              column_name: id
+      - name: pcn_name
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: stg_practices
+    columns:
+      - name: id
+        tests:
+          - unique:
+              config:
+                severity: warn
+          - is_int:
+              config:
+                severity: warn
+              column_name: id
+          - not_null:
+              config:
+                severity: warn
+      - name: practice_name
+      - name: location
+      - name: established_date
+      - name: pcn
+        tests:
+          - not_null:
+              config:
+                severity: warn
+

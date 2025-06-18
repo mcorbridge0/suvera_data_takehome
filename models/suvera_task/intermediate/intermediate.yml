@@ -1,0 +1,116 @@
+version: 2
+
+models:
+  - name: fct_activities
+    description: "Table containing data on activities. One row per activity."
+    contraints:
+      - type: primary_key
+        columns: activty_id
+    columns:
+      - name: activity_id
+        tests:
+          - unique
+          - not_null
+          - is_int:
+              config:
+                severity: warn
+              column_name: activity_id
+        description: 'ID of the activity. Primary key of the table.'
+      - name: patient_id
+        tests:
+          - not_null
+          - is_int:
+              column_name: patient_id
+        description: 'ID of the patient. Joins to dim_patient.'
+      - name: activity_type
+        description: 'Type of activity'
+      - name: activity_timestamp
+        description: 'Timestamp that the activity occurred.'
+      - name: duration_minutes
+        description: 'Duration of the activity in minutes.'
+  
+  - name: dim_patient
+    description: "Table containing data on patients. One row per patient."
+    contraints:
+      - type: primary_key
+        columns: patient_id
+    columns:
+      - name: patient_id
+        tests:
+          - unique
+          - not_null
+          - is_int:
+              column_name: patient_id
+        description: 'Unique ID of the patient. Primary key of the table.'
+      - name: practice_id
+        tests:
+          - not_null
+          - is_int:
+              column_name: practice_id
+        description: "ID of the patient's practice. Joins to dim_practice."
+      - name: age
+        description: "Age of the patient."
+        tests:
+          - not_null:
+              severity: warn
+      - name: gender
+        description: "Gender of the patient. Is of the format 'M' or 'F'."
+        tests:
+          - accepted_values:
+              values: ['M', 'F', 'X']
+              severity: warn
+      - name: registration_date
+        description: "Registration date of the patient."
+        tests:
+          - not_null:
+              severity: warn
+      - name: condition_list
+        description: "JSON list of the patient's conditions."
+      - name: email
+        description: "Email address of the patient."
+      - name: phone
+        description: "Phone number of the patient."
+
+  - name: dim_pcn
+    description: "Table containing data on PCNs. One row per PCN."
+    contraints:
+      - type: primary_key
+        columns: pcn_id
+    columns:
+      - name: pcn_id
+        tests:
+          - unique
+          - not_null
+          - is_int:
+              column_name: pcn_id
+        description: "Unique ID of the PCN. Primary key of the table."
+      - name: pcn_name
+        tests:
+          - not_null:
+              severity: warn
+        description: "Name of the PCN."
+
+  - name: dim_practice
+    description: "Table containing data on practices. One row per practice."
+    contraints:
+      - type: primary_key
+        columns: practice_id
+    columns:
+      - name: practice_id
+        tests:
+          - unique
+          - is_int:
+              column_name: practice_id
+          - not_null
+        description: "Unique ID of the practice. Primary key of the table."
+      - name: practice_name
+        description: "Name of the practice."
+      - name: location
+        description: "Location of the practice."
+      - name: established_date
+        description: "Date that the practice was established."
+      - name: pcn_id
+        tests:
+          - not_null
+        description: "ID of the PCN. Joins to dim_pcn."
+

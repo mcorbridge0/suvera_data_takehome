@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: patients
+    description: "Table contains information on patients, enriched with data from practices, pcns and activities. One row per patient."
+    contraints:
+      - type: primary_key
+        columns: patient_id
+      - name: patient_id
+        tests:
+          - unique
+          - not_null
+          - is_int:
+              column_name: patient_id
+        description: 'Unique ID of the patient. Primary key of the table.'
+      - name: practice_id
+        tests:
+          - not_null
+          - is_int:
+              column_name: practice_id
+        description: "ID of the patient's practice. Joins to dim_practice."
+      - name: age
+        description: "Age of the patient."
+      - name: age_group
+        description: "Age group of the patient. Excludes patients with an age less than 0 or greater than 115."
+      - name: gender
+        description: "Gender of the patient. Is of the format 'M' or 'F'."
+      - name: registration_date
+        description: "Registration date of the patient."
+      - name: condition_list
+        description: "JSON list of the patient's conditions."
+      - name: has_frailty
+        description: "Flag for whether the patient has frailty. 1 when the patient has frailty, 0 when they don't."
+      - name: has_hypertension
+        description: "Flag for whether the patient has hypertension. 1 when the patient has hypertension, 0 when they don't."
+      - name: has_asthma
+        description: "Flag for whether the patient has asthma. 1 when the patient has asthma, 0 when they don't."
+      - name: has_ckd
+        description: "Flag for whether the patient has ckd. 1 when the patient has ckd, 0 when they don't."
+      - name: email
+        description: "Email address of the patient."
+      - name: phone
+        description: "Phone number of the patient."
+      - name: number_of_activites
+        description: "Number of activities for this patient."
+      - name: first_activity_timestamp
+        description: "Timestamp of the first activity of the patient."
+      - name: last_activity_timestamp
+        description: "Timestamp of the last activity of the patient."
