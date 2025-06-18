@@ -11,8 +11,8 @@ WITH activity_errors AS(
         CASE WHEN
             act.activity_timestamp IS NULL OR
             act.activity_timestamp > CAST(CURRENT_TIMESTAMP AS TIMESTAMP) OR
-            CAST(act.activity_timestamp AS DATE) < '2019-01-01' OR
-            CAST(act.activity_timestamp AS DATE) < pat.registration_date THEN 1
+            CAST(act.activity_timestamp AS DATE) < CAST('2019-01-01' AS TIMESTAMP) OR
+            CAST(act.activity_timestamp AS DATE) < CAST(pat.registration_date AS DATE) THEN 1
             ELSE 0 END AS activity_timestamp_error,
         --Checks if the duration is null, less than 0 or a day or longer.
         CASE WHEN 

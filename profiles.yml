@@ -6,3 +6,4 @@ data_takehome:
       type: duckdb
       path: 'data_takehome.duckdb'
       threads: 24
+      schema: suvera

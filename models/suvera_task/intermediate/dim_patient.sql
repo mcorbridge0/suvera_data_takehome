@@ -42,7 +42,7 @@ SELECT
     999,
     null,
     null,
-    null,
+    '1900-01-01',
     null,
     null,
     null,
